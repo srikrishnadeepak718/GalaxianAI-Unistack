@@ -6,7 +6,7 @@ export default function Home() {
     { name: "Startix", motto: "One Prompt. One Startup." },
     { name: "MindRack", motto: "Where All Intelligence Connects." },
     { name: "Mentara", motto: "Empathy. Engineered." },
-    { name: "Dharmatix", motto: "San\u0101tana Dharma. Digitized." },
+    { name: "Dharmatix", motto: "Sanātana Dharma. Digitized." },
     { name: "Arogix", motto: "Health. Harmony. Intelligence." },
     { name: "Galaxi", motto: "Currency Backed by Consciousness." },
     { name: "Talentix", motto: "Skills. Verified. Amplified." },
@@ -25,12 +25,14 @@ export default function Home() {
         <h1 className="text-5xl font-bold mb-4">GalaxianAI</h1>
         <p className="text-lg italic mb-2">"Beyond stars. Above systems."</p>
         <p className="max-w-3xl mx-auto text-gray-300">
-          The GalaxianAI Empire is a sovereign AI-powered multinational system consisting of 17 interconnected startups that span across identity, governance, currency, labor, entrepreneurship, digital immortality, and divine intelligence. Each module runs independently but seamlessly integrates into one global AI operating system.
+          The GalaxianAI Empire is a sovereign AI-powered multinational system consisting of 17 interconnected startups — each considered a planet in this vast digital galaxy. These modules span identity, governance, currency, labor, entrepreneurship, digital immortality, and divine intelligence. Each planet operates independently but integrates seamlessly into one unified operating system for the world.
         </p>
       </section>
 
       <section className="text-center my-12">
-        <a href="#" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-lg transition">Get Citizenship – One Passport. Infinite Access.</a>
+        <a href="#" className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-lg transition">
+          Get Citizenship – One Passport. Infinite Access. (Subscribe)
+        </a>
       </section>
 
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -45,9 +47,9 @@ export default function Home() {
       <footer className="text-center mt-16 text-gray-500 text-sm">
         <p>© 2025 GalaxianAI. All rights reserved.</p>
         <p>Founder: SriKrishna Deepak Brundavanam</p>
-        <p>Contact: <a href="mailto:deepakbsk.business.com" className="underline">deepakbsk@galaxianai.com</a></p>
+        <p>Contact: <a href="mailto:deepakbsk.business@gmail.com" className="underline">deepakbsk.business@gmail.com</a></p>
         <p>Proudly built in India 🇮🇳</p>
       </footer>
     </main>
   );
-} 
+}
