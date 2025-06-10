@@ -45,7 +45,7 @@ export default function Home() {
       <footer className="text-center mt-16 text-gray-500 text-sm">
         <p>© 2025 GalaxianAI. All rights reserved.</p>
         <p>Founder: SriKrishna Deepak Brundavanam</p>
-        <p>Contact: <a href="mailto:deepakbsk@galaxianai.com" className="underline">deepakbsk@galaxianai.com</a></p>
+        <p>Contact: <a href="mailto:deepakbsk.business.com" className="underline">deepakbsk@galaxianai.com</a></p>
         <p>Proudly built in India 🇮🇳</p>
       </footer>
     </main>
