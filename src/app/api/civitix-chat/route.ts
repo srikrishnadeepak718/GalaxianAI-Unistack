@@ -4,7 +4,7 @@ export async function POST(req: Request) {
   const { message } = await req.json();
 
   const payload = {
-    model: 'gpt-4o', // use 'gpt-4o' or fallback to 'gpt-3.5-turbo' if needed
+    model: 'gpt-3.5-turbo', // ✅ Use a safe model for now
     messages: [
       {
         role: 'system',
@@ -34,15 +34,15 @@ export async function POST(req: Request) {
     if (data?.choices?.[0]?.message?.content) {
       return NextResponse.json({ response: data.choices[0].message.content });
     } else {
-      console.error('OpenAI API Error:', data);
+      console.error('🔴 OpenAI API returned unexpected format:', JSON.stringify(data));
       return NextResponse.json({
-        response: '⚠️ Could not generate a response. Please try again later.',
+        response: '⚠️ OpenAI returned an empty or invalid response.',
       });
     }
   } catch (error) {
-    console.error('Server Error:', error);
+    console.error('❌ OpenAI API call failed:', error);
     return NextResponse.json({
-      response: '🚨 Server error. Please check your API key or network.',
+      response: '🚨 Server error while calling OpenAI. Please try again later.',
     });
   }
 }
