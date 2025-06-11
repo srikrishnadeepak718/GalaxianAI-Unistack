@@ -4,32 +4,45 @@ export async function POST(req: Request) {
   const { message } = await req.json();
 
   const payload = {
-    model: 'gpt-4',
+    model: 'gpt-4o', // use 'gpt-4o' or fallback to 'gpt-3.5-turbo' if needed
     messages: [
       {
         role: 'system',
-        content: 'You are Civitix — an AI trained on civic, governance, policy, and law data across all countries. Provide factual, legal, and helpful answers about rights, government services, laws, and public information globally.',
+        content:
+          'You are Civitix — an AI trained on civic, governance, law, and public policy for all countries. Answer queries about laws, services, and citizenship globally.',
       },
       {
         role: 'user',
         content: message,
       },
     ],
-    temperature: 0.6,
+    temperature: 0.7,
   };
 
-  const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-    },
-    body: JSON.stringify(payload),
-  });
+  try {
+    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify(payload),
+    });
 
-  const data = await openaiRes.json();
-  const response = data.choices?.[0]?.message?.content || 'Sorry, I couldn’t generate a response.';
+    const data = await openaiRes.json();
 
-  return NextResponse.json({ response });
+    if (data?.choices?.[0]?.message?.content) {
+      return NextResponse.json({ response: data.choices[0].message.content });
+    } else {
+      console.error('OpenAI API Error:', data);
+      return NextResponse.json({
+        response: '⚠️ Could not generate a response. Please try again later.',
+      });
+    }
+  } catch (error) {
+    console.error('Server Error:', error);
+    return NextResponse.json({
+      response: '🚨 Server error. Please check your API key or network.',
+    });
+  }
 }
-
