@@ -15,6 +15,15 @@ export default function CivitixPage() {
           <li>Open civic data dashboards</li>
         </ul>
       </section>
+      <div className="text-center mt-12">
+  <a
+    href="/civitix/chat"
+    className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl text-lg transition"
+  >
+    🧠 Ask AI about countries, laws, citizenships etc
+  </a>
+</div>
+
     </main>
   );
 }
