@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Home() {
   const modules = [
     { name: "Civitix", motto: "Governments. Reinvented." },
@@ -37,10 +39,12 @@ export default function Home() {
 
       <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {modules.map((mod, i) => (
-          <div key={i} className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition cursor-pointer">
-            <h2 className="text-2xl font-bold mb-2">{mod.name}</h2>
-            <p className="text-sm text-gray-400">{mod.motto}</p>
-          </div>
+          <Link key={i} href={`/${mod.name.toLowerCase()}`}>
+            <div className="bg-gray-900 p-6 rounded-xl hover:bg-gray-800 transition cursor-pointer">
+              <h2 className="text-2xl font-bold mb-2">{mod.name}</h2>
+              <p className="text-sm text-gray-400">{mod.motto}</p>
+            </div>
+          </Link>
         ))}
       </section>
 
