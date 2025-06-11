@@ -4,12 +4,11 @@ export async function POST(req: Request) {
   const { message } = await req.json();
 
   const payload = {
-    model: 'gpt-3.5-turbo', // ✅ Use a safe model for now
+    model: 'gpt-3.5-turbo', // Use basic safe model
     messages: [
       {
         role: 'system',
-        content:
-          'You are Civitix — an AI trained on civic, governance, law, and public policy for all countries. Answer queries about laws, services, and citizenship globally.',
+        content: 'You are a civic AI. Respond with real info on global citizenship, laws, services.',
       },
       {
         role: 'user',
@@ -31,18 +30,21 @@ export async function POST(req: Request) {
 
     const data = await openaiRes.json();
 
-    if (data?.choices?.[0]?.message?.content) {
-      return NextResponse.json({ response: data.choices[0].message.content });
+    console.log('🧾 OpenAI RAW RESPONSE:', JSON.stringify(data, null, 2));
+
+    const content = data?.choices?.[0]?.message?.content;
+
+    if (content) {
+      return NextResponse.json({ response: content });
     } else {
-      console.error('🔴 OpenAI API returned unexpected format:', JSON.stringify(data));
       return NextResponse.json({
-        response: '⚠️ OpenAI returned an empty or invalid response.',
+        response: `⚠️ OpenAI response was invalid:\n${JSON.stringify(data, null, 2)}`,
       });
     }
   } catch (error) {
-    console.error('❌ OpenAI API call failed:', error);
+    console.error('❌ Error:', error);
     return NextResponse.json({
-      response: '🚨 Server error while calling OpenAI. Please try again later.',
+      response: '❌ API request failed completely.',
     });
   }
 }
