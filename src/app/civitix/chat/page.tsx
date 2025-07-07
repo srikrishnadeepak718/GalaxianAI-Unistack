@@ -20,7 +20,8 @@ export default function CivicChat() {
     });
 
     const data = await res.json();
-    const botMessage = { role: 'assistant', content: data.response };
+    console.log("HuggingFace RAW:", data);
+    const botMessage = { role: 'assistant', content: data.generated_text || 'No response' };
     setMessages((prev) => [...prev, botMessage]);
   }
 
