@@ -3,48 +3,21 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   const { message } = await req.json();
 
-  const payload = {
-    model: 'gpt-3.5-turbo', // Use basic safe model
-    messages: [
-      {
-        role: 'system',
-        content: 'You are a civic AI. Respond with real info on global citizenship, laws, services.',
-      },
-      {
-        role: 'user',
-        content: message,
-      },
-    ],
-    temperature: 0.7,
-  };
-
   try {
-    const openaiRes = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
+    const response = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-large", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        "Authorization": `Bearer ${process.env.HF_API_KEY}`,
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ inputs: message })
     });
 
-    const data = await openaiRes.json();
+    const data = await response.json();
+    const reply = data?.[0]?.generated_text || "No response from HuggingFace";
 
-    console.log('🧾 OpenAI RAW RESPONSE:', JSON.stringify(data, null, 2));
-
-    const content = data?.choices?.[0]?.message?.content;
-
-    if (content) {
-      return NextResponse.json({ response: content });
-    } else {
-      return NextResponse.json({
-        response: `⚠️ OpenAI response was invalid:\n${JSON.stringify(data, null, 2)}`,
-      });
-    }
-  } catch (error) {
-    console.error('❌ Error:', error);
-    return NextResponse.json({
-      response: '❌ API request failed completely.',
-    });
+    return NextResponse.json({ result: reply });
+  } catch (err: any) {
+    return NextResponse.json({ error: "HuggingFace API failed", detail: err.message });
   }
 }
