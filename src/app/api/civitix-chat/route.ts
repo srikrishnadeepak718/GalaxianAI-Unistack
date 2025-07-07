@@ -14,7 +14,10 @@ export async function POST(req: Request) {
     });
 
     const data = await response.json();
-    const reply = data?.[0]?.generated_text || "No response from HuggingFace";
+
+    console.log("🧠 HF RAW RESPONSE:", JSON.stringify(data));
+
+    const reply = data?.[0]?.generated_text || "Sorry, HuggingFace didn’t respond.";
 
     return NextResponse.json({ result: reply });
   } catch (err: any) {
